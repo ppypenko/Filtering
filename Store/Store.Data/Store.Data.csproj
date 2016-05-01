@@ -51,54 +51,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Product.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Product.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Product.cs">
-      <DependentUpon>Product.tt</DependentUpon>
+      <DependentUpon>Store.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Product.Designer.cs">
+    <Compile Include="Entities\Store.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Product.edmx</DependentUpon>
+      <DependentUpon>Store.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Product1.cs">
+    <Compile Include="Entities\Store.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Product.tt</DependentUpon>
+      <DependentUpon>Store.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Store.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Store.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\Viewed.cs">
-      <DependentUpon>Product.tt</DependentUpon>
+      <DependentUpon>Store.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Entities\Product.edmx">
+    <EntityDeploy Include="Entities\Store.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Product.Designer.cs</LastGenOutput>
+      <LastGenOutput>Store.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Entities\Product.edmx.diagram">
-      <DependentUpon>Product.edmx</DependentUpon>
+    <None Include="Entities\Store.edmx.diagram">
+      <DependentUpon>Store.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entities\Product.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Product.edmx</DependentUpon>
-      <LastGenOutput>Product.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\Product.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Product.edmx</DependentUpon>
-      <LastGenOutput>Product1.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Entities\Store.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Store.edmx</DependentUpon>
+      <LastGenOutput>Store.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\Store.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Store.edmx</DependentUpon>
+      <LastGenOutput>Store.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

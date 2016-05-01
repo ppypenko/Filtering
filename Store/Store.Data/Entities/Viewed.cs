@@ -16,7 +16,7 @@ namespace Store.Data.Entities
     {
         public int ID { get; set; }
         public int ProductID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
     
         public virtual Product Product { get; set; }
     }

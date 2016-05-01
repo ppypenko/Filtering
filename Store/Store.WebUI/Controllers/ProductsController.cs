@@ -51,8 +51,14 @@ namespace Store.WebUI.Controllers
             {
                 return HttpNotFound();
             }
+            //---------------start tracking views---------------
             var user = User.Identity.GetUserId();
-            ViewBag.ID = user;
+            Viewed v = new Viewed();
+            v.ProductID = (int)id;
+            v.UserID = user;
+            db.Vieweds.Add(v);
+            db.SaveChanges();
+
             ViewBag.Product = product;
             return View();
         }

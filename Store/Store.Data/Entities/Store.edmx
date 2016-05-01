@@ -28,7 +28,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_Viewed_ToTable">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
@@ -79,7 +79,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Viewed_ToTable" FromRole="Viewed" ToRole="Products" />
         </EntityType>
         <Association Name="FK_Viewed_ToTable">
