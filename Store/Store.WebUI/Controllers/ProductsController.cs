@@ -32,7 +32,8 @@ namespace Store.WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            ViewBag.Product = product;
+            return View();
         }
 
         // GET: Products/Create
