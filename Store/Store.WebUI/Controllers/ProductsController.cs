@@ -15,9 +15,27 @@ namespace Store.WebUI.Controllers
         private StoreEntities db = new StoreEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string productCategory, string searchString)
         {
-            return View(db.Products.ToList());
+            var CategoryQry = from m in db.Products orderby m.Category select m.Category;
+
+            var CategoryList = new List<string>();
+            CategoryList.AddRange(CategoryQry.Distinct());
+            ViewData["productCategory"] = new SelectList(CategoryList);
+
+            var products = from m in db.Products select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.Name.Contains(searchString));
+            }
+            if (!string.IsNullOrEmpty(productCategory))
+            {
+                products = products.Where(x => x.Category == productCategory);
+            }
+            
+            return View(products.ToList());
+            //return View(db.Products.ToList());
         }
 
         // GET: Products/Details/5

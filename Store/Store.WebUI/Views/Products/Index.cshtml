@@ -9,6 +9,14 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "Products", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+{
+    <p>
+        @Html.DropDownList("productCategory", "All")
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -53,9 +61,7 @@
             @Html.DisplayFor(modelItem => item.Category)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+            @Html.ActionLink("Details", "Details", new { id=item.ProductID })
         </td>
     </tr>
 }
