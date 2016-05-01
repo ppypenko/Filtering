@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Store.Data.Entities;
+using Microsoft.AspNet.Identity;
 
 namespace Store.WebUI.Controllers
 {
@@ -50,6 +51,8 @@ namespace Store.WebUI.Controllers
             {
                 return HttpNotFound();
             }
+            var user = User.Identity.GetUserId();
+            ViewBag.ID = user;
             ViewBag.Product = product;
             return View();
         }
