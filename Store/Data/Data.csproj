@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F28E475D-2C19-49B8-9E00-DA16DCF0B9B2}</ProjectGuid>
+    <ProjectGuid>{171E03B8-E213-45AE-A721-32ADC2F76763}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Data</RootNamespace>
@@ -41,8 +41,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,54 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Product.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Store.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Store.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Store.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Store.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Store.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ViewedProduct.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Entities\Store.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Store.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Entities\Store.edmx.diagram">
-      <DependentUpon>Store.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Entities\Store.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Store.edmx</DependentUpon>
-      <LastGenOutput>Store.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\Store.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Store.edmx</DependentUpon>
-      <LastGenOutput>Store.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
