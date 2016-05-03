@@ -4,18 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="storeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="storeDBMasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="SubCategory" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Rating" Type="float" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rating" Type="float" Nullable="false" />
           <Property Name="FiveStar" Type="int" Nullable="false" />
           <Property Name="FourStar" Type="int" Nullable="false" />
           <Property Name="ThreeStar" Type="int" Nullable="false" />
@@ -28,9 +28,9 @@
           </Key>
           <Property Name="ViewedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="UserID" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="storeDBModelStoreContainer">
+        <EntityContainer Name="storeDBMasterModelStoreContainer">
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ViewedProduct" EntityType="Self.ViewedProduct" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -38,18 +38,18 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="storeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="storeDBMasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SubCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Rating" Type="Double" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rating" Type="Double" Nullable="false" />
           <Property Name="FiveStar" Type="Int32" Nullable="false" />
           <Property Name="FourStar" Type="Int32" Nullable="false" />
           <Property Name="ThreeStar" Type="Int32" Nullable="false" />
@@ -62,9 +62,9 @@
           </Key>
           <Property Name="ViewedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="storeDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="storeDBMasterEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ViewedProducts" EntityType="Self.ViewedProduct" />
         </EntityContainer>
@@ -73,17 +73,17 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="storeDBModelStoreContainer" CdmEntityContainer="storeDBEntities">
+        <EntityContainerMapping StorageEntityContainer="storeDBMasterModelStoreContainer" CdmEntityContainer="storeDBMasterEntities">
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="storeDBModel.Product">
+            <EntityTypeMapping TypeName="storeDBMasterModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="FiveStar" ColumnName="FiveStar" />
                 <ScalarProperty Name="FourStar" ColumnName="FourStar" />
                 <ScalarProperty Name="ThreeStar" ColumnName="ThreeStar" />
@@ -93,7 +93,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ViewedProducts">
-            <EntityTypeMapping TypeName="storeDBModel.ViewedProduct">
+            <EntityTypeMapping TypeName="storeDBMasterModel.ViewedProduct">
               <MappingFragment StoreEntitySet="ViewedProduct">
                 <ScalarProperty Name="ViewedID" ColumnName="ViewedID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />

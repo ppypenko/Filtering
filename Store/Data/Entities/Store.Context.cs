@@ -13,10 +13,10 @@ namespace Data.Entities
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class storeDBEntities : DbContext
+    public partial class storeDBMasterEntities : DbContext
     {
-        public storeDBEntities()
-            : base("name=storeDBEntities")
+        public storeDBMasterEntities()
+            : base("name=storeDBMasterEntities")
         {
         }
     

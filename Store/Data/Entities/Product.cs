@@ -16,11 +16,11 @@ namespace Data.Entities
     {
         public int ProductID { get; set; }
         public string Name { get; set; }
-        public string Category { get; set; }
-        public string SubCategory { get; set; }
         public string Description { get; set; }
-        public double Rating { get; set; }
+        public string Category { get; set; }
+        public string Image { get; set; }
         public decimal Price { get; set; }
+        public double Rating { get; set; }
         public int FiveStar { get; set; }
         public int FourStar { get; set; }
         public int ThreeStar { get; set; }
