@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EDE29D79-0B96-4308-8288-75012AE8EFD6}</ProjectGuid>
+    <ProjectGuid>{FB09626A-8BFA-4193-AF5A-01EF43E1C98D}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -281,7 +281,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{171e03b8-e213-45ae-a721-32adc2f76763}</Project>
+      <Project>{f1059301-2554-4f69-a819-1479ca0804a5}</Project>
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
@@ -301,9 +301,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51871</DevelopmentServerPort>
+          <DevelopmentServerPort>59246</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51871/</IISUrl>
+          <IISUrl>http://localhost:59246/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
