@@ -1,0 +1,65 @@
+﻿@model Data.Entities.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @ViewBag.Product.Name
+        </dd>
+
+        <dt>
+            Image
+        </dt>
+
+        <dd>
+            @ViewBag.Product.Image
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+
+        <dd>
+            @ViewBag.Product.Description)
+        </dd>
+
+        <dt>
+            Category
+        </dt>
+
+        <dd>
+            @ViewBag.Product.Category
+        </dd>
+
+        <dt>
+            Price
+        </dt>
+
+        <dd>
+            @ViewBag.Product.Price
+        </dd>
+
+        <dt>
+            Rating
+        </dt>
+
+        <dd>
+            @ViewBag.Product.Rating
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
