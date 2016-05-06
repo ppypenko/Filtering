@@ -51,21 +51,19 @@ namespace WebUI.Controllers
                 return HttpNotFound();
             }
             //---------------start tracking views---------------
-            string user = User.Identity.GetUserId();
-            if (string.IsNullOrEmpty(user))
-            {
-                Boolean check = db.ViewedProducts.Where(c => c.UserID == user).Where(c => c.ProductID == (int)id).Any();
-                if(!check)
-                {
-                    ViewedProduct v = new ViewedProduct();
-                    v.ProductID = (int)id;
-                    v.UserID = user;
-                    db.ViewedProducts.Add(v);
-                    db.SaveChanges();
-                }
-            }
+            addToViewedProducts((int)id);
+            
             ViewBag.Product = product;
             return View();
+        }
+        private void getViewed(int id)
+        {
+            string user = User.Identity.GetUserId();
+            List<Product> items = new List<Product>();
+            var viewedproducts = db.ViewedProducts.Where(u => u.UserID != user);
+            //viewedproducts = (from m in db.ViewedProducts)
+
+
         }
 
         // GET: Products/Create
@@ -147,7 +145,22 @@ namespace WebUI.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        private void addToViewedProducts(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string user = User.Identity.GetUserId();
+                Boolean check = db.ViewedProducts.Where(c => c.UserID == user).Where(c => c.ProductID == id).Any();
+                if (!check)
+                {
+                    ViewedProduct v = new ViewedProduct();
+                    v.ProductID = id;
+                    v.UserID = user;
+                    db.ViewedProducts.Add(v);
+                    db.SaveChanges();
+                }
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
