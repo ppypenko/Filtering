@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Data.Entities;
 using Microsoft.AspNet.Identity;
+using System.Diagnostics;
 
 namespace WebUI.Controllers
 {
@@ -52,18 +53,28 @@ namespace WebUI.Controllers
             }
             //---------------start tracking views---------------
             addToViewedProducts((int)id);
-            
+            ViewBag.Viewed = getViewed((int)id);
             ViewBag.Product = product;
             return View();
         }
-        private void getViewed(int id)
+        private List<Product> getViewed(int id)
         {
             string user = User.Identity.GetUserId();
-            List<Product> items = new List<Product>();
-            var viewedproducts = db.ViewedProducts.Where(u => u.UserID != user);
-            //viewedproducts = (from m in db.ViewedProducts)
+            
+            List<string> userlist = db.ViewedProducts.Where(u => u.UserID != user).Where(i => i.ProductID == id).Select(u => u.UserID).ToList();
+            List<int> sqlv1 = (from vp in db.ViewedProducts
+                        from ul in userlist
+                        where ul.Contains(vp.UserID)
+                        where vp.ProductID != id
+                        group vp by new { vp.ProductID } into g
+                        orderby g.Count() descending
+                        select g.Key.ProductID).Take(5).ToList();
 
+            HashSet<int> ids = new HashSet<int>(sqlv1);
 
+            List<Product> products = db.Products.Where(u => ids.Contains(u.ProductID)).ToList();
+
+            return products;
         }
 
         // GET: Products/Create

@@ -60,6 +60,29 @@
 
     </dl>
 </div>
+<div>
+    <h2>Customers how viewed this also viewed</h2>
+    <table class="table">
+        <tr>
+            @foreach (var item in ViewBag.Viewed)
+            {
+                <td>
+                    <img src="@Url.Content(item.Image)" />
+                    <h6>
+                        @item.Name
+                    </h6>
+                    <p>
+                        Rating: @item.Rating
+                    </p>
+                    <p>
+                        $@item.Price
+                    </p>
+                </td>
+            }
+        </tr>
+    </table>
+
+</div>
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>
