@@ -9,13 +9,14 @@ using System.Web.Mvc;
 using Data.Entities;
 using Microsoft.AspNet.Identity;
 using System.Diagnostics;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
     public class ProductsController : Controller
     {
         private StoreMasterEntities db = new StoreMasterEntities();
-
+        private Models.Cart cart = new Models.Cart();
         // GET: Products
         public ActionResult Index(string productCategory, string searchString)
         {
@@ -38,6 +39,25 @@ namespace WebUI.Controllers
 
             return View(products.ToList());
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(int id)
+        {
+            Product product = (Product)from p in db.Products
+                        where p.ProductID == id
+                        select p;
+            
+            string user = User.Identity.GetUserId();
+            CartItem ci = new CartItem();
+
+            return View();
+        }
+
+        //GET: Products/Cart
+        public ActionResult Cart()
+        {
+            return View(cart);
+        }
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
@@ -57,25 +77,7 @@ namespace WebUI.Controllers
             ViewBag.Product = product;
             return View();
         }
-        private List<Product> getViewed(int id)
-        {
-            string user = User.Identity.GetUserId();
-            
-            List<string> userlist = db.ViewedProducts.Where(u => u.UserID != user).Where(i => i.ProductID == id).Select(u => u.UserID).ToList();
-            List<int> sqlv1 = (from vp in db.ViewedProducts
-                        from ul in userlist
-                        where ul.Contains(vp.UserID)
-                        where vp.ProductID != id
-                        group vp by new { vp.ProductID } into g
-                        orderby g.Count() descending
-                        select g.Key.ProductID).Take(5).ToList();
-
-            HashSet<int> ids = new HashSet<int>(sqlv1);
-
-            List<Product> products = db.Products.Where(u => ids.Contains(u.ProductID)).ToList();
-
-            return products;
-        }
+        
 
         // GET: Products/Create
         public ActionResult Create()
@@ -171,6 +173,25 @@ namespace WebUI.Controllers
                     db.SaveChanges();
                 }
             }
+        }
+        private List<Product> getViewed(int id)
+        {
+            string user = User.Identity.GetUserId();
+
+            List<string> userlist = db.ViewedProducts.Where(u => u.UserID != user).Where(i => i.ProductID == id).Select(u => u.UserID).ToList();
+            List<int> sqlv1 = (from vp in db.ViewedProducts
+                               from ul in userlist
+                               where ul.Contains(vp.UserID)
+                               where vp.ProductID != id
+                               group vp by new { vp.ProductID } into g
+                               orderby g.Count() descending
+                               select g.Key.ProductID).Take(5).ToList();
+
+            HashSet<int> ids = new HashSet<int>(sqlv1);
+
+            List<Product> products = db.Products.Where(u => ids.Contains(u.ProductID)).ToList();
+
+            return products;
         }
         protected override void Dispose(bool disposing)
         {
