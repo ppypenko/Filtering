@@ -75,11 +75,74 @@ namespace WebUI.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        //GET: Products/Cart
-        public PartialViewResult Cart()
+        private ShoppingCart loadCart()
         {
-            return PartialView(cart);
+            ShoppingCart c;
+            if (User.Identity.IsAuthenticated)
+            {
+                string user = User.Identity.GetUserId();
+                var usercart = (from p in db.Carts
+                               where p.UserID == user
+                               select p).ToList();
+                c = new ShoppingCart(usercart);
+            }else
+            {
+                c = new ShoppingCart();
+            }
+            return c;
+        }
+        //Get: Products/Cart
+        public ActionResult Cart()
+        {
+            cart = loadCart();
+            List<CartItem> products = new List<CartItem>();
+            List<Cart> list = cart.getCart();
+            foreach(Cart c in list)
+            {
+                Product item = (from p in db.Products
+                         where p.ProductID == c.ProductID
+                         select p).FirstOrDefault();
+                CartItem ci = new CartItem();
+                ci.ID = item.ProductID;
+                ci.Name = item.Name;
+                ci.Image = item.Image;
+                ci.Amount = c.Amount;
+                ci.Price = item.Price * c.Amount;
+                products.Add(ci);
+            }
+            ViewBag.Items = products;
+            ViewBag.Amount = cart.getTotalItems();
+            ViewBag.Price = cart.getTotalPrice();
+            return View();
+        }
+        //GET: Products/CartSummary
+        public PartialViewResult CartSummary()
+        {
+            cart = loadCart();
+            ViewBag.amount = cart.getTotalItems();
+            ViewBag.price = cart.getTotalPrice();
+            return PartialView();
+        }
+        public ActionResult RemoveFromCart(int? id)
+        {
+            int pid = (int)id;
+            string user = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                user = User.Identity.GetUserId();
+            }
+            Cart c = (from vp in db.Carts
+                     where vp.ProductID == pid
+                     where vp.UserID == user
+                     select vp).FirstOrDefault();
+            c.Amount -= 1;
+            if(c.Amount == 0)
+            {
+                db.Carts.Remove(c);
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("Cart");
         }
 
         // GET: Products/Details/5

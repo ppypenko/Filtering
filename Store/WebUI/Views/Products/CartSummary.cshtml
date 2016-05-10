@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "CartSummary";
+}
+
+<div class="navbar-right">
+    @Html.ActionLink("Checkout", "Cart", "Products", new { @class = "btn btn-default navbar-btn" })
+</div>
+<div class="navbar-text navbar-right">
+    <p>Items in Cart: @ViewBag.amount, Total Cost: $@ViewBag.price <span></span></p>
+</div>
+

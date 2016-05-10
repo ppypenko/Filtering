@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "My Cart";
+}
+
+<h2>My Cart</h2>
+
+<table class="table">
+
+    @foreach (var item in @ViewBag.Items)
+    {
+        <tr>
+            <td><img src="@Url.Content(@item.Image)" /></td>
+            <td>@item.Name</td>
+            <td>Item Amount: @item.Amount</td>
+            <td>Combined Price: $@item.Price</td>
+            <td>@Html.ActionLink("Remove Item", "RemoveFromCart", new { id = @item.ID })</td>
+        </tr>
+    }
+</table>
+<div class="pull-right">
+    <h4>Total Items in Cart: @ViewBag.Amount</h4>
+    <h4>Total Price: $@ViewBag.Price</h4>
+</div>
+

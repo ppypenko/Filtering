@@ -8,8 +8,15 @@ namespace WebUI.Models
 {
     public class ShoppingCart
     {
-        private List<Cart> items = new List<Cart>();
+        private List<Cart> items;
 
+        public ShoppingCart() {
+            items = new List<Cart>();
+        }
+        public ShoppingCart(List<Cart> items)
+        {
+            this.items = items;
+        }
         public void addItemToCart(Cart item)
         {
             foreach(Cart c in items)
@@ -54,10 +61,11 @@ namespace WebUI.Models
     }
     public class CartItem
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-        public string ID { get; set; }
-        public Decimal Price { get; set; }
         public int Amount { get; set; }
+        public Decimal Price { get; set; }
+        
     }
 }
