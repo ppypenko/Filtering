@@ -16,7 +16,8 @@ namespace WebUI.Controllers
     public class ProductsController : Controller
     {
         private StoreMasterEntities db = new StoreMasterEntities();
-        private Models.Cart cart = new Models.Cart();
+        private ShoppingCart cart = new ShoppingCart();
+
         // GET: Products
         public ActionResult Index(string productCategory, string searchString)
         {
@@ -39,24 +40,46 @@ namespace WebUI.Controllers
 
             return View(products.ToList());
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(int id)
-        {
-            Product product = (Product)from p in db.Products
-                        where p.ProductID == id
-                        select p;
-            
-            string user = User.Identity.GetUserId();
-            CartItem ci = new CartItem();
 
-            return View();
+        [HttpPost]
+        public ActionResult Index(int? pid)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string user = User.Identity.GetUserId();
+                int id = (int)pid;
+                Product product = (from p in db.Products
+                                   where p.ProductID == id
+                                   select p).FirstOrDefault();
+                Cart c = (from sc in db.Carts
+                              where sc.ProductID == id
+                              where sc.UserID == user
+                              select sc).FirstOrDefault();
+
+                if(c == null)
+                {
+                    c = new Cart();
+                    c.Amount += 1;
+                    c.Price = product.Price;
+                    c.ProductID = product.ProductID;
+                    c.UserID = user;
+                    db.Carts.Add(c);
+                }
+                else
+                {
+                    c.Amount += 1;
+                }
+                
+                db.SaveChanges();
+                cart.addItemToCart(c);
+            }
+            return RedirectToAction("Index");
         }
 
         //GET: Products/Cart
-        public ActionResult Cart()
+        public PartialViewResult Cart()
         {
-            return View(cart);
+            return PartialView(cart);
         }
 
         // GET: Products/Details/5

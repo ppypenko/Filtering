@@ -62,6 +62,13 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id=item.ProductID })
+            @using (Html.BeginForm())
+            {
+                <div class="pull-right">
+                    @Html.Hidden("pid", item.ProductID)
+                    <input type="submit" class="btn btn-success" value="Add to cart" />
+                </div>
+            }
         </td>
     </tr>
 }
