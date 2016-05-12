@@ -19,10 +19,5 @@ namespace Data.Entities
         public int ProductID { get; set; }
         public int Amount { get; set; }
         public decimal Price { get; set; }
-
-        public static implicit operator List<object>(Cart v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
